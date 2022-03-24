@@ -1,6 +1,6 @@
 # # #tictacto ⬜
 import random
-
+from GameBoard import Board
 
 def split(order):
     return [char for char in order]
@@ -135,8 +135,8 @@ def start():
     else:
         print("ByeBye")
 
-print("Welcome to tictacto for terminal.") 
+# print("Welcome to tictacto for terminal.") 
 
-start()
+# start()
 
-
+board = Board()
