@@ -2,19 +2,18 @@
 from GameBoard import Board
 from GamePlayer import Player
 
-board = Board()
-player_x = Player("x")
-x_mark = player_x.mark
-player_o = Player("o")
-o_mark = player_o.mark
-game_on = True
-pc_x = False
-pc_o = False
-
 print("Welcome to tictacto for terminal.") 
-print(board.mapshow)
 
 def start_game():
+    board = Board()
+    player_x = Player("x")
+    x_mark = player_x.mark
+    player_o = Player("o")
+    o_mark = player_o.mark
+    game_on = True
+    pc_x = False
+    pc_o = False
+    print(board.mapshow)
     alone_q = input("Are you playing alone? y or n: ")
     if alone_q == "y":
         x_or_o = input("Do want to play first or second?: ").lower()
@@ -63,13 +62,13 @@ def start_game():
                 print("It's a draw")
                 game_on = False
 
-again_q = input("Do you want to play another round of TictacTo? y or n: ")
-if again_q == "y":
-    board.reset_board()
-else:
-    print("ByeBye")
+    again_q = input("Do you want to play another round of TictacTo? y or n: ")
+    if again_q == "y":
+        board.reset_board()
+        start_game()
+    else:
+        print("ByeBye")
+        game_on = False
 
-
-
-
+start_game()
 

@@ -67,3 +67,9 @@ class Board:
         self.row_1 = ["1| ", " ", " | ", " ", " | ", " ", " |"]
         self.row_2 = ["2| ", " ", " | ", " ", " | ", " ", " |"]
         self.row_3 = ["3| ", " ", " | ", " ", " | ", " ", " |"]
+    
+    #Liste ausgeben mit freien positionen die ich an gameplayer zurückgeben kann 
+
+    #pc spieler soll immer chekcnen obs ne freie position gibt mit der er theoretishch gewinnen kann (check_win_x or check_win_o)
+
+    #while loops in ne funtion zu machen, aber die while loop darf in der funktion bleiben 
