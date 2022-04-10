@@ -14,5 +14,6 @@ class Player:
 
     def check_input(self, player_input):
         check_list = [char for char in player_input]
-        return (check_list[0] in ["1", "2", "3"]) and (check_list[1] in ["a", "b", "c"]) and (len(check_list) <= 2)
-    
+        while (check_list[0] not in ["1", "2", "3"]) or (check_list[1] not in ["a", "b", "c"]) or (len(check_list) > 2):
+            new_input = input("Please type in first the nuber of the row and afterward the letter of the column without spaces: ").lower()
+            check_list = [char for char in new_input]

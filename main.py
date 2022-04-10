@@ -22,53 +22,49 @@ def start_game():
         else:
             pc_x = True
 
-    print("Write the number of the row and the letter of the column to set your (without spaces) to set your 'x' or 'o', when you are asked to.")
+#start_game()
 
+board = Board()
+player_x = Player("x")
+x_mark = player_x.mark
+player_o = Player("o")
+o_mark = player_o.mark
+game_on = True
+pc_x = False
+pc_o = False
 
-    while game_on:
-        if pc_x == True:
-            x_input = player_x.pc_player()
-        else:
-            x_input = input("Decide x: ")
-        while player_x.check_input(x_input) == False:
-            x_input = input("Please type in your answer correctly: ").lower()
-        while board.set_mark(x_input, x_mark) == False:
-            if pc_x == True:
-                x_input = player_x.pc_player()
-            else:
-                x_input = input("This spot is taken. Please set another mark: ").lower()
-        if board.check_win_x() == True:
-            print("x wins!")
-            game_on = False
-        elif board.check_draw() == True:
-            print("It's a draw")
-            game_on = False
-        else:
-            if pc_o == True:
-                o_input = player_o.pc_player()
-            else:
-                o_input = input("Decide o: ").lower()
-            while player_o.check_input(o_input) == False:
-                o_input = input("Please type in your answer correctly: ").lower()
-            while board.set_mark(o_input, o_mark) == False:
-                if pc_o == True:
-                    o_input = player_o.pc_player()
-                else:
-                    o_input = input("This spot is taken. Please set another mark: ").lower()
-            if board.check_win_o() == True:
-                print("o wins!")
-                game_on = False
-            elif board.check_draw() == True:
-                print("It's a draw")
-                game_on = False
+print("Write the number of the row and the letter of the column to set your (without spaces) to set your 'x' or 'o', when you are asked to.")
 
-    again_q = input("Do you want to play another round of TictacTo? y or n: ")
-    if again_q == "y":
-        board.reset_board()
-        start_game()
-    else:
-        print("ByeBye")
+print(board.mapshow)
+
+while game_on:
+    input_x = input("Decide: ")
+    player_x.check_input(input_x)
+    converted_x_mark = board.convert_mark(input_x)
+    board.check_double_mark()
+    board.set_mark(x_mark, converted_x_mark)
+    if board.check_win_x():
+        print("x wins!")
         game_on = False
+    elif board.check_draw():
+        print("oh, its a draw!")
+        game_on = False
+    else:
+        input_o = input("Decide: ")
+        player_o.check_input(input_o)
+        converted_o_mark = board.convert_mark(input_o)
+        board.check_double_mark()
+        board.set_mark(o_mark, converted_o_mark)
+        if board.check_win_o():
+            print("o wins!")
+            game_on = False
+        elif board.check_draw():
+            print("oh, it's a draw")
+            game_on = False
 
-start_game()
-
+again_q = input("Do you want to play another round of TictacTo? y or n: ")
+if again_q == "y":
+    board.reset_board_and_mark_lists()
+    start_game()
+else:
+    print("ByeBye")
