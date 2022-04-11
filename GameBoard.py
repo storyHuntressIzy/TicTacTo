@@ -58,18 +58,32 @@ class Board:
         self.row = 0
         print(f"{''.join(self.head_list)}\n{''.join(self.row_1)}\n{''.join(self.break_list)}\n{''.join(self.row_2)}\n{''.join(self.break_list)}\n{''.join(self.row_3)}")
 
-    def check_win_x(self):
+    def check_win(self, xoro):
         for i in range(1,4):
-            if self.map[i][1] == "x" and self.map[i][3] == "x" and self.map[i][5] == "x":
+            if self.map[i][1] == xoro and self.map[i][3] == xoro and self.map[i][5] == xoro:
                 return True
         for i in range(1,6,2):
-            if self.map[1][i] == "x" and self.map [2][i] == "x" and self.map[3][i] == "x":
+            if self.map[1][i] == xoro and self.map [2][i] == xoro and self.map[3][i] == xoro:
                 return True
-        if self.map[1][1] == "x" and self.map[2][3] == "x" and self.map[3][5] == "x":
+        if self.map[1][1] == xoro and self.map[2][3] == xoro and self.map[3][5] == xoro:
             return True
-        if self.map[1][5] == "x" and self.map[2][3] == "x" and self.map[3][1] == "x":
+        if self.map[1][5] == xoro and self.map[2][3] == xoro and self.map[3][1] == xoro:
             return True
     
+    def automatic_player_set_smart_move(self, xoro):
+        win = True
+        if win == True:
+            for mark in self.all_marks:
+                if self.check_win(self,xoro) == True:
+                    return mark
+                else:
+                    win = False
+        else:
+            random_mark = choice(self.all_marks)
+            self.col = random_mark[0]
+            self.row = random_mark[1]
+            self.map[self.col][self.row] = xoro
+
     def check_win_o(self):
         for i in range(1,4):
             if self.map[i][1] == "o" and self.map[i][3] == "o" and self.map[i][5] == "o":
