@@ -10,15 +10,14 @@ x_mark = player_x.mark
 player_o = Player("o")
 o_mark = player_o.mark
 automatic_player = Player(" ")
-automatic_player.set_automatic_player()
+#automatic_player.set_automatic_player()
 game_on = True
 
 print("Write the number of the row and the letter of the column to set your (without spaces) to set your 'x' or 'o', when you are asked to.")
 
-print(board.mapshow)
- 
-input_x = player_x.set_input()
-print(input_x)
+
+player_x.set_input()
+
 
 # while game_on:
 #     input_x = input("Decide: ")

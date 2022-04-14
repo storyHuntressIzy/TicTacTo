@@ -1,4 +1,4 @@
-import random
+import re
 
 class Player:
     def __init__(self,xoro):
@@ -23,18 +23,13 @@ class Player:
         if self.automatic_player_o == True or self.automatic_player_x == True:
             pass
         else:
-            player_input = input("Decide: ")
-            check_list = [char for char in player_input]
-            while (check_list[0] not in ["1", "2", "3"]) or (check_list[1] not in ["a", "b", "c"]) or (len(check_list) > 2):
-                new_input = input("Please type in first the nuber of the row and afterward the letter of the column without spaces: ").lower()
-                check_list = [char for char in new_input]
-                return new_input
+            player_input = input("Decide: ").lower()
+            pattern = re.compile(r"[a|b|c][1-3]")
+            match = pattern.match(player_input)
+            print(match)
+            while match == None or len(player_input) > 2:
+                player_input = input("Please type in first the nuber of the row and afterward the letter of the column without spaces: ").lower()
+                match = pattern.match(player_input)
             return player_input
-        
 
-    # get_pc_player_move
-    # def pc_player(self):
-    #     row = ["1", "2", "3"]
-    #     col = ["a", "b", "c"]
-    #     mark = random.choice(row) + random.choice(col)
-    #     return mark
+    # warum funktionier ,{2} in re nicht anstelle von len
