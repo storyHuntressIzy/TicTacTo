@@ -113,10 +113,11 @@ class Board:
 
 
     def reset_attributes(self):
-        self.row_1 = ["1| ", " ", " | ", " ", " | ", " ", " |"]
-        self.row_2 = ["2| ", " ", " | ", " ", " | ", " ", " |"]
-        self.row_3 = ["3| ", " ", " | ", " ", " | ", " ", " |"]
         self.all_marks = [[1,1],[1,2],[1,3],[1,5],[2,1],[2,3],[2,5],[3,1],[3,3],[3,5]]
+        for mark in self.all_marks:
+            self.row = mark[0]
+            self.col = mark[1]
+            self.map[self.row][self.col] = " "
         self.col = 0
         self.row = 0
 

@@ -2,78 +2,6 @@
 from GameBoard import Board
 from GamePlayer import Player
 
-def play_alone():
-    game_on = True
-    board.reset_attributes()
-    while game_on:
-        automatic_mark = automatic_player.mark
-        if automatic_mark == "x":
-            board.automatic_player_set_smart_move(automatic_mark)
-            if board.check_win(automatic_mark) == True:
-                print("AP wins")
-                game_on = False
-            elif board.check_draw():
-                game_on = False
-            else:
-                o_input = player_o.set_input()
-                board.convert_checkdouble_set_mark(o_input, o_mark)
-                if board.check_win(o_mark):
-                    print("o wins!")
-                    game_on = False
-                elif board.check_draw():
-                    print("oh, it's a draw")
-                    game_on = False
-        
-        if automatic_mark == "o":
-            print(automatic_mark)
-            input_x = player_x.set_input()
-            board.convert_checkdouble_set_mark(input_x, x_mark)
-            if board.check_win(x_mark):
-                print("x wins")
-                game_on = False
-            elif board.check_draw():
-                print("oh it's a draw")
-                game_on = False
-            else:
-                board.automatic_player_set_smart_move(automatic_mark)
-                if board.check_win(automatic_mark) == True:
-                    print("AP wins")
-                    game_on = False
-                elif board.check_draw():
-                    print("Oh it's a draw")
-
-def play_together():
-    game_on = True
-    while game_on == True:
-        input_x = player_x.set_input()
-        board.convert_checkdouble_set_mark(input_x, x_mark)
-        if board.check_win(x_mark):
-            print("x wins!")
-            game_on = False
-        elif board.check_draw():
-            print("oh, its a draw!")
-            game_on = False
-        else:
-            input_o = player_o.set_input()
-            board.convert_checkdouble_set_mark(input_o, o_mark)
-            if board.check_win(o_mark):
-                print("o wins!")
-                game_on = False
-            elif board.check_draw():
-                print("oh, it's a draw")
-                game_on = False
-
-def start_and_end_game():
-    if automatic_player.set_automatic_player() == False:
-        play_together()
-    else:
-        play_alone()
-    again_q = input("Do you want to play another round of TictacTo? y or n: ")
-    if again_q == "y":
-        start_and_end_game()
-    else:
-        print("ByeBye")
-
 board = Board()
 player_x = Player("x")
 x_mark = player_x.mark
@@ -81,8 +9,60 @@ player_o = Player("o")
 o_mark = player_o.mark
 automatic_player = Player(" ")
 
+def move(player, mark):
+    user_input = player.set_input()
+    board.convert_checkdouble_set_mark(user_input,mark)
 
-print("Welcome to tictacto for terminal.") 
-print("Write the number of the row and the letter of the column to set your (without spaces) to set your 'x' or 'o', when you are asked to.")
+def check_move(mark_1):
+    if board.check_win(mark_1):
+        print(f"{mark_1} wins")
+        return True
+    elif board.check_draw():
+        print("oh, it's a draw")
+        return True
 
-start_and_end_game()
+print("Welcome to tictacto for terminal.\nWrite the number of the row and the letter of the column to set your (without spaces) to set your 'x' or 'o', when you are asked to.")
+
+def start_game():
+    game_on = True
+    if automatic_player.set_automatic_player() == False:
+        while game_on:
+            move(player_x, x_mark)
+            if check_move(x_mark):
+                game_on = False
+            else:
+                move(player_o, o_mark)
+                if check_move(o_mark):
+                    game_on = False
+    else:
+        while game_on:
+            if automatic_player.mark == "x":
+                board.automatic_player_set_smart_move(automatic_player.mark)
+                if check_move(automatic_player.mark):
+                    game_on = False
+                else:
+                    move(player_o, o_mark)
+                    if check_move(o_mark):
+                        game_on = False
+            else:
+                move(player_x, x_mark)
+                if check_move(x_mark):
+                    game_on = False
+                else:
+                    board.automatic_player_set_smart_move(automatic_player.mark)
+                    if check_move(automatic_player.mark):
+                        game_on = False
+
+    again_q = input("Do you want to play another round of TictacTo? y or n: ")
+    if again_q == "y":
+        board.reset_attributes()
+        start_game()
+    else:
+        print("ByeBye")
+
+start_game()
+
+
+
+
+
